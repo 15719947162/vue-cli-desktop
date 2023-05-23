@@ -1,20 +1,32 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
+const { patternMap } = require('./build/config.js');
+const config = {
+    entry: 'main.js',
+    html: 'index.html',
+    pattern: patternMap.length ? patternMap : ['src/pages/*', 'src/pages/**/*'],
+};
 
-function getPagesDir() {
-  const pagesDir = 'src/pages';
-  const pagesDirPath = path.resolve(__dirname, '..', pagesDir);
+const genPages = () => {
+    const pages = {};
+    const pageEntries = config.pattern.map((e) => {
+        const matches = glob.sync(path.resolve(__dirname, e));
+        return matches.filter((match) => fs.existsSync(`${match}/${config.entry}`));
+    });
+    Array.prototype.concat.apply([], pageEntries).forEach((dir) => {
+        const filename = dir.split('pages/')[1];
+        const pathName = 'src' + dir.split('src')[1];
+        pages[filename] = {
+            entry: `${pathName}/${config.entry}`,
+            template: `${pathName}/${config.html}`,
+            filename: `${filename}/${config.html}`,
+        };
+    });
+    return pages;
+};
 
-  // 使用 glob.sync 方法返回匹配到的 .vue 文件路径数组
-  const filenames = glob.sync(`${pagesDir}/**/*.vue`, { nodir: true });
-
-  // 将每个 .vue 文件路径转换为 entry 配置格式的键值对
-  return filenames.reduce((entries, filename) => {
-    const name = path.relative(pagesDirPath, filename).replace(/\.vue$/, '');
-    entries[name] = filename;
-    return entries;
-  }, {});
-}
+const pages = genPages();
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? '../../' : '/',
@@ -23,7 +35,7 @@ module.exports = {
     lintOnSave: false,
     filenameHashing: false,
     productionSourceMap: false,
-    pages: getPagesDir(),
+    pages,
     chainWebpack: (config) => {
         config.resolve.alias.set('@', path.resolve('src'));
         config.module

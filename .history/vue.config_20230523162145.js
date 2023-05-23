@@ -1,5 +1,6 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
 
 function getPagesDir() {
   const pagesDir = 'src/pages';

@@ -1,5 +1,12 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
+const { patternMap } = require('./build/config.js');
+const config = {
+    entry: 'main.js',
+    html: 'index.html',
+    pattern: patternMap.length ? patternMap : ['src/pages/*', 'src/pages/**/*'],
+};
 
 function getPagesDir() {
   const pagesDir = 'src/pages';
@@ -23,7 +30,7 @@ module.exports = {
     lintOnSave: false,
     filenameHashing: false,
     productionSourceMap: false,
-    pages: getPagesDir(),
+    pages: getPagesDir()
     chainWebpack: (config) => {
         config.resolve.alias.set('@', path.resolve('src'));
         config.module

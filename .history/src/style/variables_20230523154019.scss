@@ -1,0 +1,67 @@
+:root {
+    /* 纯色 */
+    --wisewe-black: #000000;
+    --wisewe-black-light: #030303;
+    --wisewe-white: 250, 250, 250;
+    --wisewe-white-light-1: 247, 248, 250;
+    --wisewe-white-light-2: 242, 243, 245;
+    /* 基色 */
+    --wisewe-base-color: #3d8dfc;
+    /* 功能色 */
+    --wisewe-primary-color: #3d5afe;
+    --wisewe-primary-light-color: #2f89f8;
+    --wisewe-success-color: #4bd963;
+    --wisewe-warning-light-color: #fffbe8;
+    --wisewe-warning-color: #fb8139;
+    --wisewe-warning-dark-color: #ed6a0c;
+    --wisewe-danger-color: #fb3a39;
+    --wisewe-disabled-color: #d9d9d9;
+    /* 中性色 */
+    --wisewe-primary-text-color: #333333;
+    --wisewe-base-text-color: #666666;
+    --wisewe-info-text-color: #999999;
+    --wisewe-lighter-text-color: #cccccc;
+    --wisewe-border-color: #efefef;
+    --wisewe-background-color: #f7f7f7;
+    /* 圆角 */
+    --wisewe-small-boder-radius: 4px;
+    --wisewe-base-boder-radius: 8px;
+    --wisewe-max-boder-radius: 50%;
+};
+
+// 调色板
+$black: var(--wisewe-black);
+$white: rgba(var(--wisewe-white), 1);
+$gray-1: rgba(var(--wisewe-white-light-1), 1);
+$gray-2: rgba(var(--wisewe-white-light-2), 1);
+$gray-3: var(--wisewe-border-color);
+$gray-4: var(--wisewe-disabled-color);
+$gray-5: var(--wisewe-lighter-text-color);
+$gray-6: var(--wisewe-info-text-color);
+$gray-7: var(--wisewe-base-text-color);
+$gray-8: var(--wisewe-primary-text-color);
+$blue: var(--wisewe-base-color);
+$red: var(--wisewe-danger-color);
+$light-dark: var(--wisewe-black-light);
+$orange: var(--wisewe-warning-color);
+$orange-dark: var(--wisewe-warning-dark-color);
+$orange-light: var(--wisewe-warning-light-color);
+$green: var(--wisewe-success-color);
+
+// 组件颜色
+$text-color: $gray-8;
+$active-color: $gray-2;
+$active-opacity: 0.7;
+$disabled-opacity: 0.5;
+$background-color: $gray-1;
+$background-color-light: var(--wisewe-white-light-1);
+$text-link-color: #576b95;
+
+$base-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+$price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial, sans-serif;
+
+// 动画
+$animation-duration-base: 0.3s;
+$animation-duration-fast: 0.2s;
+$animation-timing-function-enter: ease-out;
+$animation-timing-function-leave: ease-in;

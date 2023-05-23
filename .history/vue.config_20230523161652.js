@@ -1,19 +1,24 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
+const { patternMap } = require('./build/config.js');
+const config = {
+    entry: 'main.js',
+    html: 'index.html',
+    pattern: patternMap.length ? patternMap : ['src/pages/*', 'src/pages/**/*'],
+};
 
 function getPagesDir() {
   const pagesDir = 'src/pages';
   const pagesDirPath = path.resolve(__dirname, '..', pagesDir);
 
-  // 使用 glob.sync 方法返回匹配到的 .vue 文件路径数组
-  const filenames = glob.sync(`${pagesDir}/**/*.vue`, { nodir: true });
+  // 使用 fs.readdirSync 方法读取 pages 文件夹下面的文件名数组
+  const filenames = fs.readdirSync(pagesDirPath);
 
-  // 将每个 .vue 文件路径转换为 entry 配置格式的键值对
-  return filenames.reduce((entries, filename) => {
-    const name = path.relative(pagesDirPath, filename).replace(/\.vue$/, '');
-    entries[name] = filename;
-    return entries;
-  }, {});
+  // 过滤出 .vue 结尾的文件，然后返回这些文件所在的完整路径数组
+  return filenames
+    .filter(filename => /\.vue$/.test(filename))
+    .map(filename => path.join(pagesDir, filename));
 }
 
 module.exports = {
@@ -23,7 +28,7 @@ module.exports = {
     lintOnSave: false,
     filenameHashing: false,
     productionSourceMap: false,
-    pages: getPagesDir(),
+    pages,
     chainWebpack: (config) => {
         config.resolve.alias.set('@', path.resolve('src'));
         config.module

@@ -1,5 +1,12 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
+const { patternMap } = require('./build/config.js');
+const config = {
+    entry: 'main.js',
+    html: 'index.html',
+    pattern: patternMap.length ? patternMap : ['src/pages/*', 'src/pages/**/*'],
+};
 
 function getPagesDir() {
   const pagesDir = 'src/pages';
